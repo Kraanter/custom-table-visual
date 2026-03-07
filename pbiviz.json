@@ -1,18 +1,18 @@
 {
     "visual": {
-        "name": "pbiDateFilter",
-        "displayName": "Multi Card Date Slicer",
-        "guid": "pbiDateFilterAD93570630F34EEA8FEF300DD1A07206",
+        "name": "CustomTable",
+        "displayName": "Custom Table",
+        "guid": "customtable",
         "visualClassName": "Visual",
         "version": "1.0.0.0",
-        "description": "Date slicer with quick cards and custom range controls.",
+        "description": "",
         "supportUrl": "https://learn.microsoft.com/en-us/power-bi/developer/visuals/",
         "gitHubUrl": "https://github.com/microsoft/PowerBI-visuals-tools"
     },
     "apiVersion": "5.1.0",
     "author": {
-        "name": "AFP BI Engineering",
-        "email": "afp.bi.engineering@outlook.com"
+        "name": "Krijn Grimme",
+        "email": "krijn@krijngrimme.nl"
     },
     "assets": {
         "icon": "assets/icon.png"
