@@ -40,62 +40,6 @@
         "table": {
             "displayName": "Table",
             "properties": {
-                "titleText": {
-                    "displayName": "Title",
-                    "type": {
-                        "text": true
-                    }
-                },
-                "backgroundColor": {
-                    "displayName": "Background color",
-                    "type": {
-                        "fill": {
-                            "solid": {
-                                "color": true
-                            }
-                        }
-                    }
-                },
-                "headerBackgroundColor": {
-                    "displayName": "Header background",
-                    "type": {
-                        "fill": {
-                            "solid": {
-                                "color": true
-                            }
-                        }
-                    }
-                },
-                "rowDividerColor": {
-                    "displayName": "Row divider color",
-                    "type": {
-                        "fill": {
-                            "solid": {
-                                "color": true
-                            }
-                        }
-                    }
-                },
-                "columnDividerColor": {
-                    "displayName": "Column divider color",
-                    "type": {
-                        "fill": {
-                            "solid": {
-                                "color": true
-                            }
-                        }
-                    }
-                },
-                "unevenRowBackgroundColor": {
-                    "displayName": "Uneven row background",
-                    "type": {
-                        "fill": {
-                            "solid": {
-                                "color": true
-                            }
-                        }
-                    }
-                },
                 "defaultColumnWidth": {
                     "displayName": "Default column width",
                     "type": {

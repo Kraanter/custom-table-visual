@@ -6,52 +6,13 @@ import powerbi from "powerbi-visuals-api";
 import FormattingSettingsCard = formattingSettings.SimpleCard;
 import FormattingSettingsSlice = formattingSettings.Slice;
 import FormattingSettingsModel = formattingSettings.Model;
-import ColorPicker = formattingSettings.ColorPicker;
 import NumUpDown = formattingSettings.NumUpDown;
-import TextInput = formattingSettings.TextInput;
 import Container = formattingSettings.Container;
 import ToggleSwitch = formattingSettings.ToggleSwitch;
 import DataViewMetadataColumn = powerbi.DataViewMetadataColumn;
 import DataViewObjects = powerbi.DataViewObjects;
 
 class TableCardSettings extends FormattingSettingsCard {
-    titleText = new TextInput({
-        name: "titleText",
-        displayName: "Title",
-        value: "Simple Table",
-        placeholder: "Simple Table"
-    });
-
-    backgroundColor = new ColorPicker({
-        name: "backgroundColor",
-        displayName: "Background color",
-        value: { value: "#FFFFFF" }
-    });
-
-    headerBackgroundColor = new ColorPicker({
-        name: "headerBackgroundColor",
-        displayName: "Header background",
-        value: { value: "#EEF2F6" }
-    });
-
-    rowDividerColor = new ColorPicker({
-        name: "rowDividerColor",
-        displayName: "Row divider color",
-        value: { value: "#D8DDE4" }
-    });
-
-    columnDividerColor = new ColorPicker({
-        name: "columnDividerColor",
-        displayName: "Column divider color",
-        value: { value: "#D8DDE4" }
-    });
-
-    unevenRowBackgroundColor = new ColorPicker({
-        name: "unevenRowBackgroundColor",
-        displayName: "Uneven row background",
-        value: { value: "#F8FAFC" }
-    });
-
     individualColumnWidthContainer = new Container({
         displayName: "Individual column widths",
         containerItems: []
@@ -75,12 +36,6 @@ class TableCardSettings extends FormattingSettingsCard {
     displayName: string = "Table";
     container: Container = this.individualColumnWidthContainer;
     slices: Array<FormattingSettingsSlice> = [
-        this.titleText,
-        this.backgroundColor,
-        this.headerBackgroundColor,
-        this.rowDividerColor,
-        this.columnDividerColor,
-        this.unevenRowBackgroundColor,
         this.defaultColumnWidth,
         this.autoFitColumns
     ];
