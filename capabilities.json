@@ -1,0 +1,121 @@
+{
+    "dataRoles": [
+        {
+            "displayName": "Columns",
+            "name": "columns",
+            "kind": "GroupingOrMeasure"
+        }
+    ],
+    "dataViewMappings": [
+        {
+            "table": {
+                "rows": {
+                    "select": [
+                        {
+                            "for": {
+                                "in": "columns"
+                            }
+                        }
+                    ],
+                    "dataReductionAlgorithm": {
+                        "window": {
+                            "count": 500
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "objects": {
+        "general": {
+            "displayName": "General",
+            "properties": {
+                "filter": {
+                    "type": {
+                        "filter": true
+                    }
+                }
+            }
+        },
+        "table": {
+            "displayName": "Table",
+            "properties": {
+                "titleText": {
+                    "displayName": "Title",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "backgroundColor": {
+                    "displayName": "Background color",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "headerBackgroundColor": {
+                    "displayName": "Header background",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "rowDividerColor": {
+                    "displayName": "Row divider color",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "columnDividerColor": {
+                    "displayName": "Column divider color",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "unevenRowBackgroundColor": {
+                    "displayName": "Uneven row background",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "defaultColumnWidth": {
+                    "displayName": "Default column width",
+                    "type": {
+                        "numeric": true
+                    }
+                },
+                "individualColumnWidths": {
+                    "displayName": "Individual column widths",
+                    "type": {
+                        "text": true
+                    }
+                },
+                "autoFitColumns": {
+                    "displayName": "Auto-fit long text",
+                    "type": {
+                        "bool": true
+                    }
+                }
+            }
+        }
+    },
+    "privileges": []
+}
