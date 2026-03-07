@@ -102,10 +102,10 @@
                         "numeric": true
                     }
                 },
-                "individualColumnWidths": {
-                    "displayName": "Individual column widths",
+                "columnWidth": {
+                    "displayName": "Column width",
                     "type": {
-                        "text": true
+                        "numeric": true
                     }
                 },
                 "autoFitColumns": {
@@ -117,5 +117,8 @@
             }
         }
     },
+    "supportsLandingPage": true,
+    "supportsEmptyDataView": true,
+    "suppressDefaultTitle": true,
     "privileges": []
 }

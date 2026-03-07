@@ -69,10 +69,13 @@ export class Visual implements IVisual {
         const dataView: DataView = options.dataViews && options.dataViews.length > 0 ? options.dataViews[0] : undefined;
         this.formattingSettings = this.formattingSettingsService.populateFormattingSettingsModel(VisualFormattingSettingsModel, dataView);
 
+        const tableData: DataViewTable = dataView && dataView.table ? dataView.table : undefined;
+        const columns: DataViewMetadataColumn[] = tableData && tableData.columns ? tableData.columns : [];
+        this.formattingSettings.tableCard.setIndividualColumnWidthItems(columns);
+
         const tableStyleSettings: TableStyleSettings = this.getTableStyleSettings();
         this.applyStyling(tableStyleSettings);
 
-        const tableData: DataViewTable = dataView && dataView.table ? dataView.table : undefined;
         if (!tableData || !tableData.columns || tableData.columns.length === 0) {
             this.clearTable();
             this.statusNode.textContent = "Add columns to the visual to render the table.";
@@ -188,7 +191,7 @@ export class Visual implements IVisual {
             : "#F8FAFC";
 
         const defaultColumnWidth: number = tableCard.defaultColumnWidth.value || 160;
-        const customColumnWidthMap: { [columnName: string]: number } = this.parseColumnWidthInput(tableCard.individualColumnWidths.value);
+        const customColumnWidthMap: { [columnName: string]: number } = tableCard.getIndividualColumnWidthMap();
         const autoFitColumns: boolean = !!tableCard.autoFitColumns.value;
 
         return {
@@ -202,40 +205,6 @@ export class Visual implements IVisual {
             customColumnWidthMap,
             autoFitColumns
         };
-    }
-
-    private parseColumnWidthInput(rawInput: string): { [columnName: string]: number } {
-        const widthMap: { [columnName: string]: number } = {};
-        if (!rawInput || rawInput.trim().length === 0) {
-            return widthMap;
-        }
-
-        const tokens: string[] = rawInput.split(/[,;\n]/);
-        tokens.forEach((token: string) => {
-            const trimmedToken: string = token.trim();
-            if (!trimmedToken) {
-                return;
-            }
-
-            const separatorIndex: number = trimmedToken.includes(":")
-                ? trimmedToken.indexOf(":")
-                : trimmedToken.indexOf("=");
-
-            if (separatorIndex < 1 || separatorIndex >= trimmedToken.length - 1) {
-                return;
-            }
-
-            const key: string = trimmedToken.slice(0, separatorIndex).trim().toLowerCase();
-            const rawWidth: string = trimmedToken.slice(separatorIndex + 1).trim();
-            const parsedWidth: number = Number(rawWidth);
-            if (!key || Number.isNaN(parsedWidth) || parsedWidth <= 0) {
-                return;
-            }
-
-            widthMap[key] = Math.floor(parsedWidth);
-        });
-
-        return widthMap;
     }
 
     private formatValue(value: PrimitiveValue, column: DataViewMetadataColumn): string {
