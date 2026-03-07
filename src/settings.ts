@@ -8,7 +8,7 @@ import FormattingSettingsSlice = formattingSettings.Slice;
 import FormattingSettingsModel = formattingSettings.Model;
 import NumUpDown = formattingSettings.NumUpDown;
 import Container = formattingSettings.Container;
-import ToggleSwitch = formattingSettings.ToggleSwitch;
+import ColorPicker = formattingSettings.ColorPicker;
 import DataViewMetadataColumn = powerbi.DataViewMetadataColumn;
 import DataViewObjects = powerbi.DataViewObjects;
 
@@ -26,10 +26,46 @@ class TableCardSettings extends FormattingSettingsCard {
         value: 160
     });
 
-    autoFitColumns = new ToggleSwitch({
-        name: "autoFitColumns",
-        displayName: "Auto-fit long text",
-        value: false
+    tableBackgroundColor = new ColorPicker({
+        name: "tableBackgroundColor",
+        displayName: "Table background",
+        value: { value: "#ffffff" }
+    });
+
+    headerBackgroundColor = new ColorPicker({
+        name: "headerBackgroundColor",
+        displayName: "Header background",
+        value: { value: "#eef2f6" }
+    });
+
+    rowDividerColor = new ColorPicker({
+        name: "rowDividerColor",
+        displayName: "Row divider",
+        value: { value: "#d8dde4" }
+    });
+
+    columnDividerColor = new ColorPicker({
+        name: "columnDividerColor",
+        displayName: "Column divider",
+        value: { value: "#d8dde4" }
+    });
+
+    evenRowBackgroundColor = new ColorPicker({
+        name: "evenRowBackgroundColor",
+        displayName: "Alternating row background",
+        value: { value: "#f8fafc" }
+    });
+
+    headerTextColor = new ColorPicker({
+        name: "headerTextColor",
+        displayName: "Header text",
+        value: { value: "#1f2937" }
+    });
+
+    cellTextColor = new ColorPicker({
+        name: "cellTextColor",
+        displayName: "Cell text",
+        value: { value: "#334155" }
     });
 
     name: string = "table";
@@ -37,7 +73,13 @@ class TableCardSettings extends FormattingSettingsCard {
     container: Container = this.individualColumnWidthContainer;
     slices: Array<FormattingSettingsSlice> = [
         this.defaultColumnWidth,
-        this.autoFitColumns
+        this.tableBackgroundColor,
+        this.headerBackgroundColor,
+        this.rowDividerColor,
+        this.columnDividerColor,
+        this.evenRowBackgroundColor,
+        this.headerTextColor,
+        this.cellTextColor
     ];
 
     public setIndividualColumnWidthItems(columns: DataViewMetadataColumn[]): void {

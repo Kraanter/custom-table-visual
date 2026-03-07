@@ -16,17 +16,23 @@ import { VisualFormattingSettingsModel } from "./settings";
 interface TableStyleSettings {
     defaultColumnWidth: number;
     customColumnWidthMap: { [columnName: string]: number };
-    autoFitColumns: boolean;
+    tableBackgroundColor: string;
+    headerBackgroundColor: string;
+    rowDividerColor: string;
+    columnDividerColor: string;
+    evenRowBackgroundColor: string;
+    headerTextColor: string;
+    cellTextColor: string;
 }
 
 export class Visual implements IVisual {
-    private static readonly TABLE_BACKGROUND_COLOR: string = "#ffffff";
-    private static readonly TABLE_HEADER_BACKGROUND_COLOR: string = "#eef2f6";
-    private static readonly TABLE_ROW_DIVIDER_COLOR: string = "#d8dde4";
-    private static readonly TABLE_COLUMN_DIVIDER_COLOR: string = "#d8dde4";
-    private static readonly TABLE_EVEN_ROW_BACKGROUND_COLOR: string = "#f8fafc";
-    private static readonly TABLE_HEADER_TEXT_COLOR: string = "#1f2937";
-    private static readonly TABLE_CELL_TEXT_COLOR: string = "#334155";
+    private static readonly DEFAULT_TABLE_BACKGROUND_COLOR: string = "#ffffff";
+    private static readonly DEFAULT_HEADER_BACKGROUND_COLOR: string = "#eef2f6";
+    private static readonly DEFAULT_ROW_DIVIDER_COLOR: string = "#d8dde4";
+    private static readonly DEFAULT_COLUMN_DIVIDER_COLOR: string = "#d8dde4";
+    private static readonly DEFAULT_EVEN_ROW_BACKGROUND_COLOR: string = "#f8fafc";
+    private static readonly DEFAULT_HEADER_TEXT_COLOR: string = "#1f2937";
+    private static readonly DEFAULT_CELL_TEXT_COLOR: string = "#334155";
 
     private target: HTMLElement;
     private container: HTMLElement;
@@ -52,8 +58,8 @@ export class Visual implements IVisual {
         this.container.style.display = "flex";
         this.container.style.flexDirection = "column";
         this.container.style.gap = "0";
-        this.container.style.background = Visual.TABLE_BACKGROUND_COLOR;
-        this.container.style.color = Visual.TABLE_CELL_TEXT_COLOR;
+        this.container.style.background = Visual.DEFAULT_TABLE_BACKGROUND_COLOR;
+        this.container.style.color = Visual.DEFAULT_CELL_TEXT_COLOR;
         this.container.style.fontFamily = '"Segoe UI", Tahoma, sans-serif';
 
         this.scrollContainer = document.createElement("div");
@@ -98,7 +104,9 @@ export class Visual implements IVisual {
     }
 
     private applyStyling(settings: TableStyleSettings): void {
-        this.tableElement.style.tableLayout = settings.autoFitColumns ? "auto" : "fixed";
+        this.container.style.background = settings.tableBackgroundColor;
+        this.container.style.color = settings.cellTextColor;
+        this.tableElement.style.tableLayout = "auto";
     }
 
     private renderTable(tableData: DataViewTable, settings: TableStyleSettings): void {
@@ -112,18 +120,18 @@ export class Visual implements IVisual {
             const headerCell: HTMLTableCellElement = document.createElement("th");
             headerCell.className = "pbi-simple-table__header-cell";
             headerCell.textContent = column.displayName || "Column " + (index + 1);
-            headerCell.style.background = Visual.TABLE_HEADER_BACKGROUND_COLOR;
-            headerCell.style.color = Visual.TABLE_HEADER_TEXT_COLOR;
+            headerCell.style.background = settings.headerBackgroundColor;
+            headerCell.style.color = settings.headerTextColor;
             headerCell.style.fontSize = "12px";
             headerCell.style.fontWeight = "600";
             headerCell.style.textAlign = "left";
             headerCell.style.padding = "8px";
-            headerCell.style.borderBottom = "1px solid " + Visual.TABLE_ROW_DIVIDER_COLOR;
-            headerCell.style.borderRight = isLastColumn ? "0" : "1px solid " + Visual.TABLE_COLUMN_DIVIDER_COLOR;
-            headerCell.style.whiteSpace = settings.autoFitColumns ? "normal" : "nowrap";
-            headerCell.style.overflow = settings.autoFitColumns ? "visible" : "hidden";
-            headerCell.style.textOverflow = settings.autoFitColumns ? "clip" : "ellipsis";
-            headerCell.style.wordBreak = settings.autoFitColumns ? "break-word" : "normal";
+            headerCell.style.borderBottom = "1px solid " + settings.rowDividerColor;
+            headerCell.style.borderRight = isLastColumn ? "0" : "1px solid " + settings.columnDividerColor;
+            headerCell.style.whiteSpace = "normal";
+            headerCell.style.overflow = "visible";
+            headerCell.style.textOverflow = "clip";
+            headerCell.style.wordBreak = "break-word";
             headerRow.appendChild(headerCell);
 
             const width: number = this.resolveColumnWidth(column, settings);
@@ -143,7 +151,7 @@ export class Visual implements IVisual {
         rows.forEach((row: PrimitiveValue[], rowIndex: number) => {
             const rowElement: HTMLTableRowElement = document.createElement("tr");
             if (rowIndex % 2 === 1) {
-                rowElement.style.background = Visual.TABLE_EVEN_ROW_BACKGROUND_COLOR;
+                rowElement.style.background = settings.evenRowBackgroundColor;
             }
 
             tableData.columns.forEach((column: DataViewMetadataColumn, columnIndex: number) => {
@@ -151,14 +159,15 @@ export class Visual implements IVisual {
                 const cell: HTMLTableCellElement = document.createElement("td");
                 cell.className = "pbi-simple-table__cell";
                 cell.textContent = this.formatValue(row[columnIndex], column);
+                cell.style.color = settings.cellTextColor;
                 cell.style.fontSize = "12px";
                 cell.style.padding = "8px";
-                cell.style.borderBottom = "1px solid " + Visual.TABLE_ROW_DIVIDER_COLOR;
-                cell.style.borderRight = isLastColumn ? "0" : "1px solid " + Visual.TABLE_COLUMN_DIVIDER_COLOR;
-                cell.style.whiteSpace = settings.autoFitColumns ? "normal" : "nowrap";
-                cell.style.overflow = settings.autoFitColumns ? "visible" : "hidden";
-                cell.style.textOverflow = settings.autoFitColumns ? "clip" : "ellipsis";
-                cell.style.wordBreak = settings.autoFitColumns ? "break-word" : "normal";
+                cell.style.borderBottom = "1px solid " + settings.rowDividerColor;
+                cell.style.borderRight = isLastColumn ? "0" : "1px solid " + settings.columnDividerColor;
+                cell.style.whiteSpace = "normal";
+                cell.style.overflow = "visible";
+                cell.style.textOverflow = "clip";
+                cell.style.wordBreak = "break-word";
                 rowElement.appendChild(cell);
             });
 
@@ -194,13 +203,40 @@ export class Visual implements IVisual {
         const tableCard = this.formattingSettings.tableCard;
         const defaultColumnWidth: number = tableCard.defaultColumnWidth.value || 160;
         const customColumnWidthMap: { [columnName: string]: number } = tableCard.getIndividualColumnWidthMap();
-        const autoFitColumns: boolean = !!tableCard.autoFitColumns.value;
+        const tableBackgroundColor: string = this.resolveColorValue(tableCard.tableBackgroundColor.value, Visual.DEFAULT_TABLE_BACKGROUND_COLOR);
+        const headerBackgroundColor: string = this.resolveColorValue(tableCard.headerBackgroundColor.value, Visual.DEFAULT_HEADER_BACKGROUND_COLOR);
+        const rowDividerColor: string = this.resolveColorValue(tableCard.rowDividerColor.value, Visual.DEFAULT_ROW_DIVIDER_COLOR);
+        const columnDividerColor: string = this.resolveColorValue(tableCard.columnDividerColor.value, Visual.DEFAULT_COLUMN_DIVIDER_COLOR);
+        const evenRowBackgroundColor: string = this.resolveColorValue(tableCard.evenRowBackgroundColor.value, Visual.DEFAULT_EVEN_ROW_BACKGROUND_COLOR);
+        const headerTextColor: string = this.resolveColorValue(tableCard.headerTextColor.value, Visual.DEFAULT_HEADER_TEXT_COLOR);
+        const cellTextColor: string = this.resolveColorValue(tableCard.cellTextColor.value, Visual.DEFAULT_CELL_TEXT_COLOR);
 
         return {
             defaultColumnWidth,
             customColumnWidthMap,
-            autoFitColumns
+            tableBackgroundColor,
+            headerBackgroundColor,
+            rowDividerColor,
+            columnDividerColor,
+            evenRowBackgroundColor,
+            headerTextColor,
+            cellTextColor
         };
+    }
+
+    private resolveColorValue(rawColorValue: unknown, fallbackColor: string): string {
+        if (typeof rawColorValue === "string" && rawColorValue.trim().length > 0) {
+            return rawColorValue;
+        }
+
+        if (rawColorValue && typeof rawColorValue === "object") {
+            const nestedValue: unknown = (rawColorValue as { value?: unknown }).value;
+            if (typeof nestedValue === "string" && nestedValue.trim().length > 0) {
+                return nestedValue;
+            }
+        }
+
+        return fallbackColor;
     }
 
     private formatValue(value: PrimitiveValue, column: DataViewMetadataColumn): string {

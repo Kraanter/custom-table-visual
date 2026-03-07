@@ -52,10 +52,74 @@
                         "numeric": true
                     }
                 },
-                "autoFitColumns": {
-                    "displayName": "Auto-fit long text",
+                "tableBackgroundColor": {
+                    "displayName": "Table background",
                     "type": {
-                        "bool": true
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "headerBackgroundColor": {
+                    "displayName": "Header background",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "rowDividerColor": {
+                    "displayName": "Row divider",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "columnDividerColor": {
+                    "displayName": "Column divider",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "evenRowBackgroundColor": {
+                    "displayName": "Alternating row background",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "headerTextColor": {
+                    "displayName": "Header text",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "cellTextColor": {
+                    "displayName": "Cell text",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
                     }
                 }
             }
