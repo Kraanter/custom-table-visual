@@ -5,7 +5,7 @@
         "guid": "customtable",
         "visualClassName": "Visual",
         "version": "1.0.0.0",
-        "description": "",
+        "description": "custom table with width settings",
         "supportUrl": "https://learn.microsoft.com/en-us/power-bi/developer/visuals/",
         "gitHubUrl": "https://github.com/microsoft/PowerBI-visuals-tools"
     },

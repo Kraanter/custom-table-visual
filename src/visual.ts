@@ -71,7 +71,6 @@ export class Visual implements IVisual {
         this.tableElement = document.createElement("table");
         this.tableElement.className = "pbi-simple-table__table";
         this.tableElement.style.width = "max-content";
-        this.tableElement.style.minWidth = "100%";
         this.tableElement.style.borderCollapse = "collapse";
         this.tableElement.style.tableLayout = "fixed";
         this.scrollContainer.appendChild(this.tableElement);
@@ -106,7 +105,7 @@ export class Visual implements IVisual {
     private applyStyling(settings: TableStyleSettings): void {
         this.container.style.background = settings.tableBackgroundColor;
         this.container.style.color = settings.cellTextColor;
-        this.tableElement.style.tableLayout = "auto";
+        this.tableElement.style.tableLayout = "fixed";
     }
 
     private renderTable(tableData: DataViewTable, settings: TableStyleSettings): void {
