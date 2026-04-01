@@ -28,7 +28,7 @@ npm install -g powerbi-visuals-tools
 Clone this repository from GitHub:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Kraanter/custom-table-visual
 ```
 
 Open the project folder:
