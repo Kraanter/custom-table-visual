@@ -14,6 +14,8 @@ This repository contains a custom Power BI visual named **Custom Table**.
 - Node.js 18+ (recommended)
 - npm
 - Power BI visuals tools (`pbiviz`)
+- Git
+- Visual Studio Code (VS Code)
 
 Install `pbiviz` globally if needed:
 
@@ -23,11 +25,43 @@ npm install -g powerbi-visuals-tools
 
 ## Getting Started
 
+Clone this repository from GitHub:
+
+```bash
+git clone <your-repo-url>
+```
+
+Open the project folder:
+
+```bash
+cd pbiCustomTable
+```
+
 Install dependencies:
 
 ```bash
 npm install
 ```
+
+## VS Code Setup (Basic)
+
+Open the project in VS Code:
+
+```bash
+code .
+```
+
+Recommended extensions:
+
+- ESLint
+- Prettier - Code formatter
+
+Useful first-time setup in VS Code:
+
+- Open the integrated terminal (`Terminal` -> `New Terminal`)
+- Run `npm install` if not already done
+- Run `npm run start` to start local development
+- Optional: run `npm run lint` before committing changes
 
 Start the local development server:
 
